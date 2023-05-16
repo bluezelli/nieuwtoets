@@ -7,7 +7,7 @@ use App\Entity\Country;
 use App\Form\FormlandType;
 use App\Repository\CountryRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Env\Request;
+use http\Client\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,11 +32,11 @@ class LandController extends AbstractController
     {
         $land = $entityManager->getRepository(Country::class)->find($id);
         return $this->render('land/index.html.twig', [
-            'land'=> $land
+            'continent'=> $land
         ]);
     }
 
-    #[Route('/update/{id}', name: 'refresh')]
+    #[Route('/update/{id}', name: 'updaten')]
     public function updateshower( EntityManagerInterface $entityManager , Request $request, int $id): Response
     {
 //      $id = $countryclass->getId();
@@ -46,35 +46,43 @@ class LandController extends AbstractController
         $form->handleRequest($request);
 
 
-
-            if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
 //                $data = $form->getData();
-                $entityManager->persist($form);
-                $entityManager->flush($form);
-            $this->redirectToRoute('home');
-            }
-        return $this->renderForm('update.html.twig', [
-            'form' => $form
-        ]);
-
-        #[Route('/update/{id}', name: 'refresh')]
-      public function inserten( EntityManagerInterface $entityManager , Request $request , int $id): Response
-    {
-
-        $inserts = new Country();
-        $form = $this->createForm(FormlandType::class, $inserts);
-        $form->handleRequest($request);
-
-
-        if ($form->isSubmitted() && $form->isValid()){
-            $data  = $form->getData();
             $entityManager->persist($form);
             $entityManager->flush($form);
             $this->redirectToRoute('home');
         }
-        return $this->renderForm('insert.html.twig', [
+        return $this->renderForm('update.html.twig', [
             'form' => $form
         ]);
+    }
+            #[Route('/insert/{id}', name: 'insert')]
+      public function inserten( EntityManagerInterface $entityManager , Request $request , int $id): Response
+            {
+
+                $inserts = new Country();
+                $form = $this->createForm(FormlandType::class, $inserts);
+                $form->handleRequest($request);
+
+
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $data = $form->getData();
+                    $entityManager->persist($form);
+                    $entityManager->flush($form);
+                    $this->redirectToRoute('home');
+                }
+                return $this->renderForm('insert.html.twig', [
+                    'form' => $form
+                ]);
+            }
+
+        #[Route('/deleten/{id}', name: 'delete')]
+        public function deletes(Country $countryclass, EntityManagerInterface $entityManager): Response
+        {
+            $delete = $countryclass->getId();
+            $entityManager->remove($delete);
+            $entityManager->flush($delete);
+        }
 
 
     }

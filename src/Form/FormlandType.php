@@ -13,7 +13,7 @@ class FormlandType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('continent')
+//            ->add('continent')
             ->add('submit', SubmitType::class )
         ;
     }
