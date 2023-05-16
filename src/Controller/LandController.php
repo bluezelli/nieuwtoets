@@ -32,4 +32,36 @@ class LandController extends AbstractController
             'land'=> $land
         ]);
     }
-}
+
+    #[Route('/update/{id}', name: 'refresh')]
+    public function updateshower(EntityManagerInterface $entityManager , int $id): Response
+    {
+        $update = $entityManager->getRepository(Country::class)->find($id);
+        $update = new Country();
+        $form = $this->createForm()
+
+        return $this->render('land/index.html.twig', [
+//            'land'=> $land
+        ]);
+    }
+
+    #[Route('/update/{id}', name: 'update')]
+    public function update(AutosRepository $autosRepository, Autos $autoClass , EntityManagerInterface $entityManager, Request $request)
+    {
+        $id = $autoClass->getId();
+        $auto = new Autos();
+        $auto->$autosRepository->find($id);
+        $form = $this->createForm(AutoFormType::class, $auto);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $auto = $form->getData();
+            $entityManager->persist($auto);
+            $entityManager->flush($auto);
+//            $this->redirectToRoute('home');
+        }
+        return $this->renderForm('update.html.twig', [
+            'form' => $form
+        ]);
+
+
+    }
