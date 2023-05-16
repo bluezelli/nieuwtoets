@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Continent;
 use App\Entity\Country;
+use App\Repository\CountryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,34 +35,26 @@ class LandController extends AbstractController
     }
 
     #[Route('/update/{id}', name: 'refresh')]
-    public function updateshower(EntityManagerInterface $entityManager , int $id): Response
+    public function updateshower(country $countryclass , EntityManagerInterface $entityManager , int $id): Response
     {
+//        $id = $countryclass->getId();
         $update = $entityManager->getRepository(Country::class)->find($id);
         $update = new Country();
         $form = $this->createForm()
 
-        return $this->render('land/index.html.twig', [
-//            'land'=> $land
-        ]);
-    }
 
-    #[Route('/update/{id}', name: 'update')]
-    public function update(AutosRepository $autosRepository, Autos $autoClass , EntityManagerInterface $entityManager, Request $request)
-    {
-        $id = $autoClass->getId();
-        $auto = new Autos();
-        $auto->$autosRepository->find($id);
-        $form = $this->createForm(AutoFormType::class, $auto);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-            $auto = $form->getData();
-            $entityManager->persist($auto);
-            $entityManager->flush($auto);
+
+            if ($form->isSubmitted() && $form->isValid()){
+                $ = $form->getData();
+                $entityManager->persist($);
+                $entityManager->flush($);
 //            $this->redirectToRoute('home');
-        }
+            }
         return $this->renderForm('update.html.twig', [
             'form' => $form
         ]);
 
 
     }
+
+
