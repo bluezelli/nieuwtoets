@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Continent;
+use App\Entity\Country;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,10 +20,16 @@ class LandController extends AbstractController
     {
         $continent = $entityManager->getRepository(Continent::class)->findAll();
         return $this->render('land/index.html.twig', [
-            'continent'=> $continent
+            'continent' => $continent
         ]);
     }
 
     #[Route('/landen/{id}', name: 'land')]
-
+    public function landenshower(EntityManagerInterface $entityManager , int $id): Response
+    {
+        $land = $entityManager->getRepository(Country::class)->find($id);
+        return $this->render('land/index.html.twig', [
+            'land'=> $land
+        ]);
+    }
 }

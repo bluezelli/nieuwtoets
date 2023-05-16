@@ -3,9 +3,9 @@
 {% block title %}Hello LandController!{% endblock %}
 
 {% block body %}
-<style>
+    <style>
 
-</style>
+    </style>
 
     <div class="container">
         <div class="row">
@@ -15,22 +15,22 @@
                     <tr>
                         <th scope="col">Continent naam</th>
                         <th scope="col">landen</th>
-{#                        <th scope="col">title</th>#}
+
                     </tr>
 
                     </thead>
                     <tbody>
-                    {% for continents in continent %}
+                    {% for landen in land %}
                         <tr>
                             <td>
-                               {{ continents.name }}
+                                {{ landen.name }}
 
                             </td>
                             <td>
-                                <a class="btn btn-primary" href="{{ path('land',{id: continents.id}) }}">Landen</a>
+{#                                <a class="btn btn-primary" href="{{ path('land',{id: continents.id}) }}">Landen</a>#}
                             </td>
                             <td>
-{#                                                            <a class="btn btn-warning" href="{{ path('',{id: continents.id}) }}">update</a>#}
+                                {#                                                            <a class="btn btn-warning" href="{{ path('',{id: continents.id}) }}">update</a>#}
                             </td>
                         </tr>
 
