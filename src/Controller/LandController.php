@@ -39,7 +39,7 @@ class LandController extends AbstractController
     #[Route('/update/{id}', name: 'refresh')]
     public function updateshower( EntityManagerInterface $entityManager , Request $request, int $id): Response
     {
-//        $id = $countryclass->getId();
+//      $id = $countryclass->getId();
         $update = $entityManager->getRepository(Country::class)->findBy($id);
         $update = new Country();
         $form = $this->createForm(FormlandType::class, $update);
@@ -48,7 +48,7 @@ class LandController extends AbstractController
 
 
             if ($form->isSubmitted() && $form->isValid()){
-              $data  = $form->getData();
+//                $data = $form->getData();
                 $entityManager->persist($form);
                 $entityManager->flush($form);
             $this->redirectToRoute('home');
@@ -58,21 +58,21 @@ class LandController extends AbstractController
         ]);
 
         #[Route('/update/{id}', name: 'refresh')]
-public function inserten( EntityManagerInterface $entityManager , int $id): Response
-{
-//
-        $update = new Country();
-        $form = $this->createForm(FormlandType::class, $update);
+      public function inserten( EntityManagerInterface $entityManager , Request $request , int $id): Response
+    {
 
+        $inserts = new Country();
+        $form = $this->createForm(FormlandType::class, $inserts);
+        $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()){
             $data  = $form->getData();
-            $entityManager->persist($);
-            $entityManager->flush($);
-//            $this->redirectToRoute('home');
+            $entityManager->persist($form);
+            $entityManager->flush($form);
+            $this->redirectToRoute('home');
         }
-        return $this->renderForm('update.html.twig', [
+        return $this->renderForm('insert.html.twig', [
             'form' => $form
         ]);
 

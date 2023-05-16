@@ -30,9 +30,13 @@
 {#                                <a class="btn btn-primary" href="{{ path('land',{id: continents.id}) }}">Landen</a>#}
                             </td>
                             <td>
-                                {#                                                            <a class="btn btn-warning" href="{{ path('',{id: continents.id}) }}">update</a>#}
+                                <a class="btn btn-warning" href="{{ path('delete',{id: landen.id}) }}">Delete</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-dark" href="{{ path('insert') }}">insert</a>
                             </td>
                         </tr>
+
 
                     {% endfor %}
                     </tbody>
